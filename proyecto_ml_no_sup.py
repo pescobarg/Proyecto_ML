@@ -10,6 +10,8 @@ from sklearn.mixture import GaussianMixture
 from sklearn.decomposition import PCA
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, balanced_accuracy_score
 from collections import Counter
+from joblib import dump
+
 
 # 1. Carga y limpieza
 ds = pd.read_csv("https://www.datos.gov.co/resource/cm2t-qreq.csv")
@@ -154,3 +156,18 @@ print("\n=== DBSCAN Clustering (no supervisado) ===")
 print(confusion_matrix(y_test, labels_test))
 print(classification_report(y_test, labels_test, digits=4, zero_division=0))
 print(f"Acc={accuracy_score(y_test, labels_test):.3f}, BalAcc={balanced_accuracy_score(y_test, labels_test):.3f}")
+
+
+# Después de entrenar tus modelos
+dump(dbscan, "modelos/modelo_DB.joblib")
+dump(gmm, "modelos/modelo_GMM.joblib")
+dump(kmeans, "modelos/modelo_KM.joblib")
+
+# Guardar el scaler
+dump(scaler, "modelos/scaler_NS.joblib")
+
+# Guardar las columnas seleccionadas (es una lista o Index de pandas)
+dump(selected_columns, "modelos/columns_NS.joblib")
+
+# Guardar PCA
+dump(pca, "modelos/pca_NS.joblib")

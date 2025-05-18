@@ -15,6 +15,7 @@ from sklearn.metrics import (
     classification_report, confusion_matrix,
     accuracy_score, balanced_accuracy_score
 )
+from joblib import dump
 from collections import Counter
 
 # 1. Carga y limpieza
@@ -105,3 +106,15 @@ for name, model in models.items():
     print(classification_report(y_test, y_pred, digits=4, zero_division=0))
     print(f"Acc={accuracy_score(y_test, y_pred):.3f}, "
           f"BalAcc={balanced_accuracy_score(y_test, y_pred):.3f}")
+
+
+
+# Guardar modelos
+dump(models["RandomForest"], "modelos/modelo_rf.joblib")
+dump(models["SVM"], "modelos/modelo_svm.joblib")
+dump(models["GradientBoosting"], "modelos/modelo_gb.joblib")
+dump(models["LogisticRegression"], "modelos/modelo_lr.joblib")
+
+# Guardar scaler y columnas
+dump(scaler, "modelos/scaler.joblib")
+dump(selected_columns, "modelos/columns.joblib")
